@@ -1,0 +1,15 @@
+{
+  "simulated": true,
+  "case_id": "C02",
+  "run_id": "RUN-C02-3485",
+  "client": "cliente-474",
+  "principal": "arn:aws:iam::000000000000:role/lab-c02",
+  "action": "s3:PutObject",
+  "bucket": "lab-l2-c02-deliveries",
+  "key": "clientes/cliente-474/daily/delivery-c02.csv",
+  "resource": "arn:aws:s3:::lab-l2-c02-deliveries/clientes/cliente-474/daily/delivery-c02.csv",
+  "status": "DELIVERED",
+  "sha256": "6058fff8a331a7b23c5eaca78569fe29ef8da278a2f0da48118c425a7136a143",
+  "timestamp": "2026-10-21T20:19:27.752484+00:00",
+  "attempt_id": "487d24ba-4402-43db-ac1f-ece7b91aa99e"
+}

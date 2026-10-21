@@ -1,29 +1,29 @@
 {
   "P1": {
-    "opcion": "",
-    "evidencia": "",
-    "justificacion": "",
-    "comando": ""
+    "opcion": "proceso_activo",
+    "evidencia": "l2-support-assessment-delivery-1   l2-assessment:local   'python /lab/app/ser…'   delivery   About a minute ago   Up About a minute  ",
+    "justificacion": "proceso delivery esta vivo",
+    "comando": "docker compose ps -a"
   },
   "P2": {
-    "opcion": "",
-    "evidencia": "",
-    "justificacion": "",
-    "comando": ""
+    "opcion": "destino_fuera_alcance",
+    "evidencia": "config original: S3_PREFIX=clientes/cliente-475/daily/ usa id de cliente incorrecto, retorna 'status': 'AcessDenied'",
+    "justificacion": "el cliente destino esperado en el contrato es cliente 474",
+    "comando": "docker compose logs --no-color delivery"
   },
   "P3": {
-    "opcion": "",
-    "evidencia": "",
-    "justificacion": "",
-    "comando": ""
+    "opcion": "RUN-C02-3485",
+    "evidencia": "delivery-1  | {'service': 'delivery', 'event': 'PUT_OBJECT', 'simulated': true, 'case_id': 'C02', 'run_id': 'RUN-C02-3485', 'client': 'cliente-474', 'principal': 'arn:aws:iam::000000000000:role/lab-c02', 'action': 's3:PutObject', 'bucket': 'lab-l2-c02-deliveries', 'key': 'clientes/cliente-475/daily/delivery-c02.csv', 'resource': 'arn:aws:s3:::lab-l2-c02-deliveries/clientes/cliente-475/daily/delivery-c02.csv', 'status': 'AccessDenied', 'sha256': null, 'timestamp': '2026-10-21T20:18:42.836465+00:00', 'attempt_id': 'b975ca98-c864-4fcd-a438-34aadf1aedc2'}",
+    "justificacion": "Match entre contrato y log (RUN-C02-3485), tambien se ve el error en el log del evento",
+    "comando": "docker compose logs --no-color delivery"
   },
   "P4": {
-    "opcion": "",
-    "evidencia": "",
-    "justificacion": "",
-    "comando": ""
+    "opcion": "corregir_destino",
+    "evidencia": "delivery-1  | {'service': 'delivery', 'event': 'PUT_OBJECT', 'simulated': true, 'case_id': 'C02', 'run_id': 'RUN-C02-3485', 'client': 'cliente-474', 'principal': 'arn:aws:iam::000000000000:role/lab-c02', 'action': 's3:PutObject', 'bucket': 'lab-l2-c02-deliveries', 'key': 'clientes/cliente-474/daily/delivery-c02.csv', 'resource': 'arn:aws:s3:::lab-l2-c02-deliveries/clientes/cliente-474/daily/delivery-c02.csv', 'status': 'DELIVERED', 'sha256': '6058fff8a331a7b23c5eaca78569fe29ef8da278a2f0da48118c425a7136a143', 'timestamp': '2026-10-21T20:19:27.752484+00:00', 'attempt_id': '487d24ba-4402-43db-ac1f-ece7b91aa99e'}",
+    "justificacion": "estado cambia a delivered, key ahora usa el id correcto de cliente",
+    "comando": "docker compose up -d --no-build --force-recreate delivery"
   },
-  "resumen": "",
-  "validacion": "",
-  "uso_ia": ""
+  "resumen": "El error surge de un id erroneo en config.env (client-475), el log muestra un estado de AccessDenied, una vez actualziado a id correcto (client-474), retorna estado DELIVERED",
+  "validacion": "{'ok': true, 'receipt': {'simulated': true, 'case_id': 'C02', 'run_id': 'RUN-C02-3485', 'client': 'cliente-474', 'principal': 'arn:aws:iam::000000000000:role/lab-c02', 'action': 's3:PutObject', 'bucket': 'lab-l2-c02-deliveries', 'key': 'clientes/cliente-474/daily/delivery-c02.csv', 'resource': 'arn:aws:s3:::lab-l2-c02-deliveries/clientes/cliente-474/daily/delivery-c02.csv', 'status': 'DELIVERED', 'sha256': '6058fff8a331a7b23c5eaca78569fe29ef8da278a2f0da48118c425a7136a143', 'timestamp': '2026-10-21T20:19:27.752484+00:00', 'attempt_id': '487d24ba-4402-43db-ac1f-ece7b91aa99e'}}",
+  "uso_ia": "Se uso IA para revisar los logs, esta identifico el mismatch entre el cliente y el key usado"
 }

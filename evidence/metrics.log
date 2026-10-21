@@ -1,0 +1,1 @@
+{"timestamp": "2026-10-16T07:02:00Z", "service": "metrics", "run_id": "METRICS-C05", "event": "WARN_BUFFER_HIGH", "message": "Buffer de métricas al 75%; servicio independiente de delivery"}

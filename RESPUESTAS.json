@@ -1,28 +1,30 @@
 {
+ 
   "P1": {
-    "opcion": "",
-    "evidencia": "",
-    "justificacion": "",
-    "comando": ""
+    "respuesta": "proceso_activo",
+    "evidencia": "El contenedor l2-support-assessment-delivery-1 aparece en estado 'Up' en la salida de docker ps -a.",
+    "justificacion": "El estado Up demuestra que el proceso principal del contenedor continúa ejecutándose. La falla observada corresponde a la aplicación y no a un contenedor detenido.",
+    "comando": "docker ps -a"
   },
   "P2": {
-    "opcion": "",
-    "evidencia": "",
-    "justificacion": "",
-    "comando": ""
+    "respuesta": "destino_fuera_alcance",
+    "evidencia": "La ejecución RUN-C05-2800 corresponde al cliente-885, pero el intento de escritura se realiza sobre la clave clientes/cliente-886/daily/delivery-c05.csv. La política únicamente permite s3:PutObject sobre arn:aws:s3:::lab-l2-c05-deliveries/clientes/cliente-885/daily/*.",
+    "justificacion": "El destino efectivo no coincide con el prefijo autorizado por el contrato ni por la política asignada a la identidad arn:aws:iam::000000000000:role/lab-c05. Por ello la operación devuelve AccessDenied.",
+    "comando": "docker logs l2-support-assessment-delivery-1"
   },
   "P3": {
-    "opcion": "",
-    "evidencia": "",
-    "justificacion": "",
-    "comando": ""
+    "respuesta": "RUN-C05-2800",
+    "evidencia": "El evento INPUT_READY y posteriormente el evento PUT_OBJECT con status AccessDenied están asociados al run_id RUN-C05-2800.",
+    "justificacion": "El ticket solicita investigar la ejecución RUN-C05-2800 y es la única ejecución actual que presenta rechazo de autorización durante el intento de entrega.",
+    "comando": "docker logs l2-support-assessment-delivery-1"
   },
   "P4": {
-    "opcion": "",
-    "evidencia": "",
-    "justificacion": "",
-    "comando": ""
+    "respuesta": "corregir_destino",
+    "evidencia": "El contrato establece el prefijo clientes/cliente-885/daily/, mientras que el intento de escritura utilizó clientes/cliente-886/daily/delivery-c05.csv.",
+    "justificacion": "La evidencia demuestra una configuración incorrecta del destino. El procedimiento indica corregir el destino configurado y validar la entrega, sin ampliar permisos ni modificar el contrato.",
+    "comando": "docker logs l2-support-assessment-delivery-1"
   },
+
   "resumen": "",
   "validacion": "",
   "uso_ia": ""

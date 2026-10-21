@@ -1,0 +1,3 @@
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS         PORTS     NAMES
+f1eb583d1a1a   l2-assessment:local   "python /lab/app/ser…"   9 minutes ago   Up 9 minutes             l2-support-assessment-delivery-1
+69bbb41bf02e   l2-assessment:local   "python /lab/app/ser…"   9 minutes ago   Up 9 minutes             l2-support-assessment-metrics-1

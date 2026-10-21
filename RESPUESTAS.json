@@ -25,7 +25,10 @@
     "comando": "docker logs l2-support-assessment-delivery-1"
   },
 
-  "resumen": "",
-  "validacion": "",
-  "uso_ia": ""
+  "resumen": "Se clonó el repositorio y se creó la imagen Docker local debido a que no existía una imagen previamente construida. Posteriormente se inició el laboratorio, levantando los contenedores delivery y metrics. Se revisaron los logs de ambos servicios y se identificó que la ejecución RUN-C05-2800 fallaba durante la operación s3:PutObject con estado AccessDenied. Al comparar la evidencia con el contrato, la política y la configuración del servicio, se determinó que el cliente investigado era cliente-885, pero el destino configurado apuntaba al prefijo clientes/cliente-886/daily/. Se corrigió la configuración para utilizar el prefijo contratado clientes/cliente-885/daily/ y se reinició el entorno para validar la solución.",
+
+  "validacion": "Después de actualizar el valor de S3_PREFIX en config.env, se detuvieron y reiniciaron los contenedores mediante el script del laboratorio. Se verificó nuevamente la salida de los logs del servicio delivery y se confirmó que la ejecución RUN-C05-2800 generó un evento PUT_OBJECT exitoso con estado DELIVERED. Adicionalmente, la clave utilizada coincidió con el prefijo autorizado clientes/cliente-885/daily/delivery-c05.csv y se registró correctamente el SHA-256 esperado, confirmando la entrega satisfactoria.",
+
+  "uso_ia": "Se utilizó Microsoft Copilot como apoyo para revisar comandos Docker, interpretar registros de eventos, validar el flujo de diagnóstico y contrastar la evidencia encontrada con el comportamiento esperado del servicio. Todas las conclusiones, validaciones y cambios aplicados fueron verificadas manualmente sobre el entorno del laboratorio."
+
 }

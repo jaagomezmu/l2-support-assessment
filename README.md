@@ -1,17 +1,87 @@
-# Laboratorio L2 — 30 minutos
+# Prueba L2 — C01 — 30 minutos
 
-Este repositorio es la plantilla pública. El entrevistador te entregará una rama
-`caso/Cxx` con el ticket, cuatro preguntas y los datos de tu sesión.
+## Ticket
 
-Docker es real; S3 e IAM están simulados localmente. No necesitas cuenta AWS ni
-programar. El simulador representa únicamente una operación PutObject y una
-política Allow sobre un prefijo; no modela todas las políticas de AWS.
+El archivo diario de `cliente-337`, ejecución `RUN-C01-9012`, no llegó a su destino.
+El contenedor figura activo. Investiga el incidente, corrige la configuración
+y demuestra la entrega en este laboratorio. Hay mensajes históricos y de otros servicios.
 
-Clona la rama indicada, crea `entrega/Cxx` y sigue su README. La referencia de
-comandos está en [docs/REFERENCIA.md](docs/REFERENCIA.md).
+Docker es real; AWS está **simulado**. No hay cuenta, credenciales ni servicios AWS reales.
+No es necesario escribir Python. Todos los datos son ficticios.
 
-Se permiten documentación, búsquedas y chats de IA; no agentes ni IA en la
-terminal. Puedes pedir ayuda. Se registrará el nivel de orientación recibido.
+## Inicio
 
-No incluyas credenciales ni información real en tus respuestas: las entregas
-serán públicas. Este ejercicio es ficticio y no representa infraestructura EPFR.
+Después de clonar `caso/C01`, crea `entrega/C01` y ejecuta:
+
+```sh
+python3 tools/lab.py start
+```
+
+Las imágenes están precargadas. Si el entorno no inicia, avisa al entrevistador.
+Consulta [la referencia](docs/REFERENCIA.md) y `case/CONTRATO.md`.
+
+## Trabajo y tiempos
+
+- 0–4: clonar, crear rama e iniciar.
+- 4–12: investigar y completar el diagnóstico; crear el primer commit.
+- 12–20: corregir `config.env` y aplicar la configuración.
+- 20–24: comprobar el resultado y documentarlo.
+- 24–27: segundo commit, push y entrega del SHA.
+- 27–30: explicar evidencia y resultado al entrevistador.
+
+Puedes pedir ayuda; se registrará la orientación proporcionada. Se permiten
+documentación, Google y chats de IA. No agentes ni IA en la terminal. Indica
+brevemente el uso de IA en la plantilla; no se penaliza su uso permitido.
+
+## Preguntas
+
+Responde en `RESPUESTAS.json` usando el identificador de opción, evidencia,
+justificación y un comando utilizado. Para P2–P4 cita datos de tu caso, no solo
+el nombre de un error. Para P1 relaciona estado del contenedor y resultado de aplicación.
+
+### P1. ¿Qué demuestra que el contenedor figure en ejecución?
+
+- `sin_errores` — No hubo errores de aplicación
+- `proceso_activo` — Su proceso principal sigue activo
+- `permisos_completos` — Tiene todos los permisos necesarios
+- `entrega_confirmada` — El archivo llegó al destino
+### P2. ¿Qué explica el fallo de la entrega del ticket?
+
+- `contenedor_detenido` — El contenedor está detenido
+- `destino_fuera_alcance` — El destino utilizado está fuera del alcance autorizado
+- `timeout_actual` — La ejecución actual agotó el tiempo de red
+- `entrada_ausente` — No existe el archivo de entrada
+### P3. ¿Qué evento corresponde al incidente del ticket?
+
+- `METRICS-C01` — WARN_BUFFER_HIGH de METRICS-C01
+- `OTHER-C01-782` — DELIVERED de OTHER-C01-782
+- `RUN-C01-9012` — PUT_OBJECT / AccessDenied de RUN-C01-9012
+- `OLD-C01-273` — NETWORK_TIMEOUT de OLD-C01-273
+### P4. ¿Qué acción respaldan el procedimiento y la evidencia?
+
+- `ampliar_permisos` — Autorizar escritura sobre todos los objetos
+- `reintentar_igual` — Reintentar sin cambiar ni revisar la configuración
+- `reiniciar_todo` — Reiniciar todos los servicios sin revisar el rechazo
+- `corregir_destino` — Corregir el destino configurado y validar la entrega
+
+## Entrega
+
+1. Guarda evidencia inicial con `python3 tools/lab.py capture` y crea un commit
+   de diagnóstico antes de corregir la configuración.
+2. Modifica únicamente `config.env`, `RESPUESTAS.json` y archivos bajo `evidence/`.
+   Conserva la aplicación, política, contrato y datos originales.
+3. Comprueba el resultado con `python3 tools/lab.py check`; ejecuta `capture`
+   nuevamente para guardar el recibo final. El recibo inicial se conserva.
+4. Completa el resumen (hasta seis líneas), la validación y el uso de IA.
+5. Ejecuta `python3 tools/lab.py answers`, revisa el diff y crea el segundo commit.
+6. Publica `entrega/C01` y entrega el SHA, comprobando la referencia remota.
+
+No se pide pull request. Puedes usar comandos equivalentes a la referencia.
+Las comprobaciones públicas ayudan a validar; no asignan la nota final.
+Un commit local no equivale a un push. Nunca incluyas datos reales o secretos.
+
+## Evaluación
+
+Investigación 25%, Docker 20%, conceptos AWS 20%, corrección/validación 15%,
+Git 10%, comunicación 10%. Se evalúan calidad y ayuda por separado. Las
+entregas serán públicas; las evidencias y la explicación deben corresponder a tu caso.

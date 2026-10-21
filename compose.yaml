@@ -1,0 +1,23 @@
+services:
+  delivery:
+    image: l2-assessment:local
+    build: .
+    command: ["python", "/lab/app/service.py", "delivery"]
+    env_file: config.env
+    volumes:
+      - ./case:/lab/case:ro
+      - receipts:/lab/artifacts
+    network_mode: none
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  metrics:
+    image: l2-assessment:local
+    build: .
+    command: ["python", "/lab/app/service.py", "metrics"]
+    volumes:
+      - ./case:/lab/case:ro
+    network_mode: none
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+volumes:
+  receipts:

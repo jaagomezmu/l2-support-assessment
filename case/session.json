@@ -1,0 +1,42 @@
+{
+  "case_id": "C05",
+  "client": "cliente-885",
+  "run_id": "RUN-C05-2800",
+  "principal": "arn:aws:iam::000000000000:role/lab-c05",
+  "filename": "delivery-c05.csv",
+  "expected_bucket": "lab-l2-c05-deliveries",
+  "expected_prefix": "clientes/cliente-885/daily/",
+  "history": [
+    {
+      "timestamp": "2026-10-15T06:00:00Z",
+      "service": "delivery",
+      "client": "cliente-885",
+      "run_id": "OLD-C05-188",
+      "event": "NETWORK_TIMEOUT",
+      "message": "Intento histórico; reintento pendiente"
+    },
+    {
+      "timestamp": "2026-10-15T06:01:00Z",
+      "service": "delivery",
+      "client": "cliente-885",
+      "run_id": "OLD-C05-188",
+      "event": "DELIVERED",
+      "message": "Reintento histórico completado"
+    },
+    {
+      "timestamp": "2026-10-16T07:00:00Z",
+      "service": "delivery",
+      "client": "cliente-886",
+      "run_id": "OTHER-C05-530",
+      "event": "DELIVERED",
+      "message": "Entrega histórica de otro cliente completada"
+    }
+  ],
+  "metrics_event": {
+    "timestamp": "2026-10-16T07:02:00Z",
+    "service": "metrics",
+    "run_id": "METRICS-C05",
+    "event": "WARN_BUFFER_HIGH",
+    "message": "Buffer de métricas al 75%; servicio independiente de delivery"
+  }
+}
